@@ -1,0 +1,20 @@
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+vidcap = cv2.VideoCapture('GTA Driving 2.mp4')
+success,img = vidcap.read()
+count = 0
+success = True
+while success:
+    success,img = vidcap.read()
+    print ('Read a new frame: ', success)
+    #mask = np.zeros(img.shape, dtype=np.uint8)
+    #roi_corners = np.array([[(0, 620), (0, 550), (600, 500), (650, 500), (960, 620)]], dtype=np.int32)
+    #channel_count = img.shape[2]
+    #ignore_mask_color = (255,) * channel_count
+    #cv2.fillPoly(mask, roi_corners, ignore_mask_color)
+    #masked_img = cv2.bitwise_and(img, mask)
+    edges = cv2.Canny(img,100,200)
+    cv2.imwrite("frame%d.jpg" % count, edges)
+    count += 1
